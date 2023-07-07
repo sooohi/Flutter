@@ -5,18 +5,24 @@ import 'package:flutter/material.dart';
 class Feed extends StatefulWidget {
   //extreact widget으로 해당 위젯을 별도의 statelesswidget
   const Feed({
+    //required = 필수 전달 매개 변수로 만듬
+    //this.imageUrl = 많은 Feed 인스턴스 중 현재 인스턴스의 imageUrl
+    //feed 위젯 호출시 전달
+    required this.imageUrl,
     super.key,
   });
+  //imageUrl은 한 번 전달받은 뒤 변경되지 않기 때문에 앞에 final 키워드를 붙여줌
+  final String imageUrl; // 외부로부터 이미지를 담을 변수
 
   @override
   State<Feed> createState() => _FeedState();
 }
 
-// 좋아요 여부를 나타내는 상태 변수
-bool isFavorite = false;
-
-//statefulwidget으로 바꾼 후 상태를 관리하는 _Feedstate 클래스가 추가됨
+// statefulwidget으로 바꾼 후 상태를 관리하는 _Feedstate 클래스가 추가됨
+// _가 있는 함수는 프라이빗하기 때문에 외부에서 접근 x
 class _FeedState extends State<Feed> {
+  // 좋아요 여부를 나타내는 상태 변수
+  bool isFavorite = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +31,8 @@ class _FeedState extends State<Feed> {
       children: [
         // 이미지
         Image.network(
-          "https://cdn.pixabay.com/photo/2018/05/11/08/11/dog-3389729_1280.jpg",
+          //10번째를 widget.변수명을 사용해 상태 클래스에서 접근
+          widget.imageUrl,
           height: 400,
           width: double.infinity, // 폭 가득 채움
           fit: BoxFit.cover, //이미지 비율 유지하면서 고정된 폭과 높이에 맞추어 이미지 제공
