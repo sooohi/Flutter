@@ -1,12 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Feed extends StatelessWidget {
+//좋아요 여부에 따라 화면 생신하기 위해 statefulwidget으로 변경
+class Feed extends StatefulWidget {
   //extreact widget으로 해당 위젯을 별도의 statelesswidget
   const Feed({
     super.key,
   });
 
+  @override
+  State<Feed> createState() => _FeedState();
+}
+
+// 좋아요 여부를 나타내는 상태 변수
+bool isFavorite = false;
+
+//statefulwidget으로 바꾼 후 상태를 관리하는 _Feedstate 클래스가 추가됨
+class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,10 +35,18 @@ class Feed extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                // 클릭시 isfavorite 변수 값이 반전되면서 화면 갱신
+                setState(() {
+                  //화면 갱신
+                  isFavorite = !isFavorite; // 좋아요 토글(클릭시 상태 변경)
+                });
+              },
               icon: Icon(
                 CupertinoIcons.heart,
-                color: Colors.black,
+                color: isFavorite
+                    ? Colors.pink
+                    : Colors.black, //isFavorite이 true면 핑크 아님 검정
               ),
             ),
             IconButton(

@@ -27,7 +27,13 @@ class HomePage extends StatelessWidget {
         centerTitle: true, //가운데 정렬
         backgroundColor: Colors.white, //appbar 흰색
       ),
-      body: Feed(), //homewpage 위젯의 body 부분 feed 라는 이름의 위젯으로 분리
+      //body: Feed(), //homewpage 위젯의 body 부분 feed 라는 이름의 위젯으로 분리
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return Feed();
+        },
+      ),
     );
   }
 }
